@@ -1,4 +1,5 @@
 from enum import Enum,unique
+from credit_card import CreditCard
 
 class Customer:
     """A model class that represents a customer in a bank"""
@@ -9,12 +10,15 @@ class Customer:
         SAVINGS = 300000.0
         CURRENT = 30000000.0
 
-    def __init__(self,name: str,acct_type: str,email: str,balance: float,acct_no: str):
+    def __init__(self,name: str,acct_type: str,email: str,balance: float,acct_no: str,credit: CreditCard,bank: str):
         self._name = name
         self._acct_type = acct_type
         self._email = email
         self._balance = balance
         self._acct_no = acct_no
+        self._bank = bank
+        self._limit = 200000000000.0
+        self._credit = credit(self.name,self.bank,self.acct_no,self.balance,self._limit)
 
     def __str__(self):
         return f"{self._name} {self._acct_no} {self._acct_type} {self._balance}"
@@ -61,6 +65,10 @@ class Customer:
     @acct_no.setter
     def acct_no(self, value: str):
         self._acct_no = value
+
+    @property
+    def bank(self):
+        return self._bank
 
     def transfer(self,amount: float) -> float:
         if 0 <= amount <= self.balance:
