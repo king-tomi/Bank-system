@@ -67,12 +67,17 @@ class Customer:
         self._acct_no = value
 
     @property
+    def credit(self):
+        return self._credit
+
+    @property
     def bank(self):
         return self._bank
 
     def transfer(self,amount: float) -> float:
         if 0 <= amount <= self.balance:
             self.balance = self.balance - amount
+            self.credit.balance = self.balance
             return amount
         else:
             print("insufficient balance")
@@ -86,7 +91,7 @@ class Customer:
         by the Max enum class"""
         try:
             if self.acct_type == "savings":
-                if amount > self.Max.SAVINGS:
+                if amount > self.Max.SAVINGS or amount > self.credit.limit:
                     print("Maximum deposit exceeded. please try again")
                 else:
                     self.balance = self.balance + amount

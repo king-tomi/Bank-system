@@ -1,3 +1,4 @@
+from typing import Tuple
 class CreditCard:
 
     def __init__(self,name: str,bank: str,acnt : int,balance: float,limit: float):
@@ -25,6 +26,10 @@ class CreditCard:
     @property
     def balance(self):
         return self._balance
+
+    @balance.setter
+    def balance(self,amount: Tuple(int,float)):
+        self._balance = amount
 
     @property
     def limit(self):
